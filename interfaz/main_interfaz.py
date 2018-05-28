@@ -11,14 +11,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(763, 457)
+        MainWindow.resize(640, 240)
+        MainWindow.setMinimumSize(QtCore.QSize(320, 240))
+        MainWindow.setMaximumSize(QtCore.QSize(640, 480))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 763, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 25))
         self.menubar.setObjectName("menubar")
         self.menuM_todos = QtWidgets.QMenu(self.menubar)
         self.menuM_todos.setObjectName("menuM_todos")
@@ -42,14 +44,4 @@ class Ui_MainWindow(object):
         self.menuM_todos.setTitle(_translate("MainWindow", "Métodos"))
         self.menuAcerca_de.setTitle(_translate("MainWindow", "Acerca de"))
         self.actionSIMPLEX.setText(_translate("MainWindow", "SIMPLEX"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 

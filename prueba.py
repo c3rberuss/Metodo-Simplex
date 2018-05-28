@@ -51,7 +51,8 @@ M = Symbol('M', real=True)
 a = '-2/3'
 b = '3/2'
 
-lista = [a, b]
+lista = ["X1", "X2", "X3"]
+lista2 = ["X4", "X5", "X1"]
 
 print( max(lista) )
 
@@ -59,3 +60,13 @@ print( max(lista) )
 #print(Fraction('3*M/6'))
 
 print(lista*2)"""
+
+if not lista2 in lista:
+    print("SI")
+
+a = 12 * M
+
+
+print(float("6.2"))
+
+print("hola\ncomo estas?\nBien :)")

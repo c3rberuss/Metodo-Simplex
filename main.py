@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
 
-from PyQt5.Qt import QIntValidator
+from PyQt5.Qt import QIntValidator, QDoubleValidator, QPixmap, QPalette, QBrush
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QAction, QDialog, QComboBox,
                              QLineEdit, QLayoutItem, QInputDialog, QMessageBox)
 
 from interfaz import main_interfaz, simplex_interfaz
 from metodos import simplex_v4 as sp
 from fractions import Fraction
+from metodos.report.Reporte import saveReport
 
 import sys
 
@@ -20,13 +21,13 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         QDialog.__init__(self)
         self.setupUi(self)
 
-        self.validator = QIntValidator()
+        self.validator = QDoubleValidator()
 
         self.txtRestricciones.setClearButtonEnabled(True)
         self.txtVariables.setClearButtonEnabled(True)
 
-        self.txtRestricciones.setValidator(self.validator)
-        self.txtVariables.setValidator(self.validator)
+        self.txtRestricciones.setValidator( QIntValidator())
+        self.txtVariables.setValidator( QIntValidator())
 
         self.scrollContent.setLayout(self.gridData)
         self.scrollAreaWidgetContents.setLayout(self.func_object)
@@ -84,9 +85,17 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         print("DATA: ", self.getData())
         data = sp.simplex(self.getData(), self.cbxMax_min.currentText())
 
-        mensaje = QMessageBox(self)
+
+        reporte = saveReport(data[0], data[1], data[2], data[3])
+        reporte.crear_pdf()
+        reporte.mostrar_pdf()
+
+        data = None
+        reporte = None
+
+        """mensaje = QMessageBox(self)
         mensaje.setText(str(data))
-        mensaje.exec_()
+        mensaje.exec_()"""
 
     def getData(self):
 
@@ -95,8 +104,8 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         tmp = {}
 
         for x in range(self.func_object.columnCount()):
-            tmp['X' + str(x + 1)] = float(self.func_object.itemAtPosition(0,
-                                                                          x).widget().text())
+            tmp['X' + str(x + 1)] = float(str(self.func_object.itemAtPosition(0,
+                                                                          x).widget().text()))
 
         sub_data['func_obj'] = tmp
         tmp = {}
@@ -114,12 +123,12 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
                 elif columna == self.gridData.columnCount() - 1:
 
                     tmp['b' + str(fila + 1)] = float(
-                        self.gridData.itemAtPosition(fila, columna).widget().text())
+                        str(self.gridData.itemAtPosition(fila, columna).widget().text()))
 
                 else:
 
                     tmp['X' + str(columna + 1)] = float(
-                        self.gridData.itemAtPosition(fila, columna).widget().text())
+                        str(self.gridData.itemAtPosition(fila, columna).widget().text()))
 
             sub_data['restric_' + str(fila + 1)] = tmp
             tmp = {}
@@ -183,6 +192,16 @@ class Main(QMainWindow, main_interfaz.Ui_MainWindow):
 
         self.menuM_todos.addAction(simplex)
         simplex.triggered.connect(self.ui_simplex)
+        #self.resize(640,480)
+        self.setFixedSize(640,380)
+
+        background =QPixmap("back.jpg")
+        background = background.scaled(self.size())
+        pal = self.palette()
+        pal.setBrush(QPalette.Background, QBrush(background))
+        self.setPalette(pal)
+
+        self.setStyleSheet(" QMenuBar{ background-color: #e1e1e1} ")
 
     def mensaje(self):
         print(self.lineEdit.text())
