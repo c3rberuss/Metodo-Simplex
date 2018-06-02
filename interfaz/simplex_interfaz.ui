@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>396</height>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,6 +98,13 @@
       <widget class="QPushButton" name="btnClose">
        <property name="text">
         <string>Cerrar</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnLimpiar">
+       <property name="text">
+        <string>Limpiar</string>
        </property>
       </widget>
      </item>
@@ -271,8 +278,12 @@
  </widget>
  <tabstops>
   <tabstop>txtRestricciones</tabstop>
+  <tabstop>cbxMax_min</tabstop>
   <tabstop>txtVariables</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>scrollArea</tabstop>
   <tabstop>btnSolve</tabstop>
+  <tabstop>btnLimpiar</tabstop>
   <tabstop>btnClose</tabstop>
  </tabstops>
  <resources/>

@@ -1,16 +1,15 @@
 #!/usr/bin/python3
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
+import sys
 
 from PyQt5.Qt import QIntValidator, QDoubleValidator, QPixmap, QPalette, QBrush
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QAction, QDialog, QComboBox,
-                             QLineEdit, QLayoutItem, QInputDialog, QMessageBox)
+                             QLineEdit, QLabel)
 
-from interfaz import main_interfaz, simplex_interfaz
+from interfaz import main_interfaz, simplex_interfaz, transporte_interfaz
 from metodos import simplex_v4 as sp
-from fractions import Fraction
 from metodos.report.Reporte import saveReport
-
-import sys
 
 app = QApplication(sys.argv)
 
@@ -26,8 +25,8 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         self.txtRestricciones.setClearButtonEnabled(True)
         self.txtVariables.setClearButtonEnabled(True)
 
-        self.txtRestricciones.setValidator( QIntValidator())
-        self.txtVariables.setValidator( QIntValidator())
+        self.txtRestricciones.setValidator(QIntValidator())
+        self.txtVariables.setValidator(QIntValidator())
 
         self.scrollContent.setLayout(self.gridData)
         self.scrollAreaWidgetContents.setLayout(self.func_object)
@@ -42,6 +41,8 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         self.label_4.setVisible(False)
 
         self.btnSolve.clicked.connect(self.solve)
+
+        self.btnLimpiar.clicked.connect(self.clearLayout)
 
     def generateInputs(self):
 
@@ -61,6 +62,9 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
     def clearLayout(self):
 
+        self.label_3.setVisible(False)
+        self.label_4.setVisible(False)
+
         for x in range(self.func_object.columnCount()):
             if self.func_object.itemAtPosition(0, x) != None:
                 self.func_object.itemAtPosition(0, x).widget().setParent(None)
@@ -74,7 +78,8 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
                             restriccion, variable).widget().setParent(None)
 
         except Exception as e:
-            print(e, " - ",line_err)
+            # print(e, " - ", line_err)
+            pass
 
         self.gridLayout.update()
         self.update()
@@ -85,6 +90,7 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         print("DATA: ", self.getData())
         data = sp.simplex(self.getData(), self.cbxMax_min.currentText())
 
+        print("DATA", data)
 
         reporte = saveReport(data[0], data[1], data[2], data[3])
         reporte.crear_pdf()
@@ -104,8 +110,10 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         tmp = {}
 
         for x in range(self.func_object.columnCount()):
-            tmp['X' + str(x + 1)] = float(str(self.func_object.itemAtPosition(0,
-                                                                          x).widget().text()))
+            if str(self.func_object.itemAtPosition(0, x).widget().text()) != '':
+                tmp['X' + str(x + 1)] = float(str(self.func_object.itemAtPosition(0, x).widget().text()))
+            else:
+                tmp['X' + str(x + 1)] = float(0)
 
         sub_data['func_obj'] = tmp
         tmp = {}
@@ -117,8 +125,8 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
                 if columna == self.gridData.columnCount() - 2:
 
-                    tmp['desigualdad' + str(fila + 1)] = self.gridData.itemAtPosition(
-                        fila, columna).widget().currentText()
+                    tmp['desigualdad' + str(fila + 1)] = self.gridData.itemAtPosition(fila,
+                                                                                      columna).widget().currentText()
 
                 elif columna == self.gridData.columnCount() - 1:
 
@@ -127,8 +135,11 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
                 else:
 
-                    tmp['X' + str(columna + 1)] = float(
-                        str(self.gridData.itemAtPosition(fila, columna).widget().text()))
+                    if str(self.gridData.itemAtPosition(fila, columna).widget().text()) != '':
+                        tmp['X' + str(columna + 1)] = float(
+                            str(self.gridData.itemAtPosition(fila, columna).widget().text()))
+                    else:
+                        tmp['X' + str(columna + 1)] = float(0)
 
             sub_data['restric_' + str(fila + 1)] = tmp
             tmp = {}
@@ -162,7 +173,7 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
                     input_ = QLineEdit()
                     input_.setValidator(self.validator)
-                    #print("Var: "+str(variable))
+                    # print("Var: "+str(variable))
 
                     input_.setPlaceholderText("b" + str(restriccion + 1))
                     input_.setMinimumWidth(40)
@@ -172,11 +183,134 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
                     input_ = QLineEdit()
                     input_.setValidator(self.validator)
-                    #print("Var: "+str(variable))
+                    # print("Var: "+str(variable))
 
                     input_.setMinimumWidth(40)
                     input_.setPlaceholderText("X" + str(variable + 1))
                     self.gridData.addWidget(input_, restriccion, variable)
+
+
+class Transporte(QDialog, transporte_interfaz.Ui_Dialog):
+    validator = None
+    n_origenes = None
+    n_destinos = None
+
+    def __init__(self):
+        QDialog.__init__(self)
+        self.setupUi(self)
+
+        self.btnClose.clicked.connect(self.close)
+
+        self.validator = QDoubleValidator()
+
+        self.txtDestinos.setClearButtonEnabled(True)
+        self.txtOrigenes.setClearButtonEnabled(True)
+
+        self.txtDestinos.setValidator(QIntValidator())
+        self.txtOrigenes.setValidator(QIntValidator())
+
+        self.scrollContent.setLayout(self.gridData)
+
+        self.txtOrigenes.textChanged['QString'].connect(self.generate_inputs)
+        self.txtDestinos.textChanged['QString'].connect(self.generate_inputs)
+
+        self.resize(720, 480)
+
+    def generate_inputs(self):
+
+        if self.txtOrigenes.text() == '' or self.txtDestinos.text() == '':
+            self.n_destinos = 0
+            self.n_origenes = 0
+        else:
+            self.n_origenes = int(self.txtOrigenes.text()) + 2
+            self.n_destinos = int(self.txtDestinos.text()) + 2
+
+        i = 1
+
+        for origen in range(self.n_origenes):
+
+            for destino in range(self.n_destinos):
+
+                if origen == 0 and destino == 0:
+
+                    label = QLabel("Origen\\Destino")
+                    self.gridData.addWidget(label, origen, destino)
+
+                elif origen == 0 and destino != self.n_destinos - 1:
+
+                    input_ = QLineEdit()
+                    input_.setPlaceholderText("Destino " + str(destino))
+                    self.gridData.addWidget(input_, origen, destino)
+
+                elif origen == 0 and destino == self.n_destinos - 1:
+
+                    label = QLabel("Oferta")
+                    self.gridData.addWidget(label, origen, destino)
+
+                elif origen != self.n_origenes - 1 and destino == 0:
+
+                    input_ = QLineEdit()
+                    input_.setPlaceholderText("Origen " + str(origen))
+                    self.gridData.addWidget(input_, origen, destino)
+
+                elif origen == self.n_origenes - 1 and destino == 0:
+
+                    label = QLabel("Demanda")
+                    self.gridData.addWidget(label, origen, destino)
+
+                elif origen == self.n_origenes - 1 and destino < self.n_destinos - 1:
+
+                    input_ = QLineEdit()
+                    input_.setValidator(QDoubleValidator())
+                    input_.setPlaceholderText("Demanda " + str(destino))
+                    self.gridData.addWidget(input_, origen, destino)
+
+                elif origen > 0 and origen < self.n_origenes - 1 and destino == self.n_destinos - 1:
+
+                    input_ = QLineEdit()
+                    input_.setValidator(QDoubleValidator())
+                    input_.setPlaceholderText("Oferta " + str(origen))
+                    self.gridData.addWidget(input_, origen, destino)
+
+                elif origen > 0 and origen < self.n_origenes - 1 and destino > 0 and destino < self.n_destinos - 1:
+
+                    input_ = QLineEdit()
+                    input_.setValidator(QDoubleValidator())
+                    input_.setPlaceholderText("costo " + str(i))
+                    self.gridData.addWidget(input_, origen, destino)
+
+                    i += 1
+
+        # for restriccion in range(i):
+        #
+        #     for variable in range(j):
+        #
+        #         if variable == j - 2:
+        #
+        #             combo = QComboBox()
+        #             combo.addItems(['<=', '>=', '='])
+        #
+        #             self.gridData.addWidget(combo, restriccion, variable)
+        #
+        #         elif variable == j - 1:
+        #
+        #             input_ = QLineEdit()
+        #             input_.setValidator(self.validator)
+        #             # print("Var: "+str(variable))
+        #
+        #             input_.setPlaceholderText("b" + str(restriccion + 1))
+        #             input_.setMinimumWidth(40)
+        #             self.gridData.addWidget(input_, restriccion, variable)
+        #
+        #         else:
+        #
+        #             input_ = QLineEdit()
+        #             input_.setValidator(self.validator)
+        #             # print("Var: "+str(variable))
+        #
+        #             input_.setMinimumWidth(40)
+        #             input_.setPlaceholderText("X" + str(variable + 1))
+        #             self.gridData.addWidget(input_, restriccion, variable)
 
 
 class Main(QMainWindow, main_interfaz.Ui_MainWindow):
@@ -192,10 +326,17 @@ class Main(QMainWindow, main_interfaz.Ui_MainWindow):
 
         self.menuM_todos.addAction(simplex)
         simplex.triggered.connect(self.ui_simplex)
-        #self.resize(640,480)
-        self.setFixedSize(640,380)
 
-        background =QPixmap("back.jpg")
+        transporte = QAction("TRANSPORTE", self)
+        transporte.setShortcut("Ctrl+T")
+
+        self.menuM_todos.addAction(transporte)
+        transporte.triggered.connect(self.ui_transporte)
+
+        # self.resize(640,480)
+        self.setFixedSize(640, 380)
+
+        background = QPixmap("back.jpg")
         background = background.scaled(self.size())
         pal = self.palette()
         pal.setBrush(QPalette.Background, QBrush(background))
@@ -208,6 +349,11 @@ class Main(QMainWindow, main_interfaz.Ui_MainWindow):
 
     def ui_simplex(self):
         ventana = Simplex()
+        ventana.parent = self
+        ventana.exec_()
+
+    def ui_transporte(self):
+        ventana = Transporte()
         ventana.parent = self
         ventana.exec_()
 

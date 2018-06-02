@@ -70,3 +70,7 @@ a = 12 * M
 print(float("6.2"))
 
 print("hola\ncomo estas?\nBien :)")
+
+lista = [1, 2, 3]
+
+print(sum(lista))

@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import legal, inch, landscape, portrait
+from reportlab.lib.pagesizes import legal, A2 , inch, landscape, portrait
 from reportlab.pdfgen import textobject
 from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
 from reportlab.lib.styles import getSampleStyleSheet
@@ -96,7 +96,7 @@ class saveReport():
     
         header = None
 
-        doc = SimpleDocTemplate("Solucion_Simplex.pdf", pagesize=landscape(legal))
+        doc = SimpleDocTemplate("Solucion_Simplex.pdf", pagesize=landscape(A2))
         elements = []
 
         styleSheet = getSampleStyleSheet()
