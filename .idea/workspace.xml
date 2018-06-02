@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1585742c-4720-40b6-bdfa-4a39a840d2ef" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/metodos/aproximacion_vogel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/metodos/esquina_ noroeste.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/metodos/transporte.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Solucion_Simplex.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Solucion_Simplex.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaz/simplex_interfaz.py" beforeDir="false" afterPath="$PROJECT_DIR$/interfaz/simplex_interfaz.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interfaz/simplex_interfaz.ui" beforeDir="false" afterPath="$PROJECT_DIR$/interfaz/simplex_interfaz.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metodos/report/Reporte.py" beforeDir="false" afterPath="$PROJECT_DIR$/metodos/report/Reporte.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metodos/simplex_v4.py" beforeDir="false" afterPath="$PROJECT_DIR$/metodos/simplex_v4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prueba.py" beforeDir="false" afterPath="$PROJECT_DIR$/prueba.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="prueba.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/prueba.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="67" selection-start-line="67" selection-end-line="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="98" column="19" lean-forward="true" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+              <folding>
+                <element signature="e#44#54#0" expanded="true" />
+                <element signature="e#6035#10420#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Reporte.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="esquina_ noroeste.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="102" selection-start-line="102" selection-end-line="102" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="simplex_v4.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="129">
+              <caret line="572" lean-forward="true" selection-start-line="572" selection-end-line="572" />
+              <folding>
+                <element signature="e#1270#4765#0" />
+                <element signature="e#4810#5862#0" />
+                <element signature="e#5933#8455#0" />
+                <element signature="e#8491#8644#0" />
+                <element signature="e#8685#11531#0" />
+                <element signature="e#11570#11644#0" />
+                <element signature="e#11697#11983#0" />
+                <element signature="e#12044#16980#0" />
+                <element signature="e#17044#17508#0" />
+                <element signature="e#17546#18566#0" />
+                <element signature="e#19905#21158#0" />
+                <element signature="e#21196#21967#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transporte.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="1" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="inicial" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>matriz</find>
+      <find>PIVOTE</find>
+      <find>condicion</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/metodos/transporte.py" />
+        <option value="$PROJECT_DIR$/prueba.py" />
+        <option value="$PROJECT_DIR$/metodos/esquina_ noroeste.py" />
+        <option value="$PROJECT_DIR$/metodos/report/Reporte.py" />
+        <option value="[Connection]consoles/Connection" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/metodos/simplex_v4.py" />
+      </list>
+    </option>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-1" />
+    <option name="y" value="25" />
+    <option name="width" value="1346" />
+    <option name="height" value="703" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="/usr/share/qt4/bin/designer" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="MOP" sdk-home="$PROJECT_DIR$/venv/bin/python">
+        <option name="mySdkHome" value="$PROJECT_DIR$/venv/bin/python" />
+        <option name="myModuleName" value="MOP" />
+        <option name="myAddSourceRoots" value="true" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.simplex_v4">
+    <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
+      <module name="MOP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="2" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="true" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="esquina_ noroeste" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MOP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/metodos" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/metodos/esquina_ noroeste.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MOP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="prueba" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MOP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/prueba.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="simplex_v4" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MOP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/metodos" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/metodos/simplex_v4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.prueba" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.esquina_ noroeste" />
+      <item itemvalue="Python.simplex_v4" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.simplex_v4" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.esquina_ noroeste" />
+        <item itemvalue="Python.prueba" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1585742c-4720-40b6-bdfa-4a39a840d2ef" name="Default" comment="" />
+      <created>1527700896498</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1527700896498</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="25" width="1360" height="705" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49625936" weight="0.245142" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32901135" />
+      <window_info id="DB Browser" order="2" sideWeight="0.50374067" side_tool="true" weight="0.245142" />
+      <window_info anchor="bottom" id="DB Execution Console" order="7" weight="0.32943144" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32869565" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.8678261" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32901135" />
+      <window_info id="Structure" order="1" sideWeight="0.5008104" side_tool="true" weight="0.24532536" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3273906" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3987034" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12518">
+          <caret line="1226" selection-start-line="1226" selection-end-line="1226" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="47" lean-forward="true" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <folding>
+            <element signature="e#44#54#0" expanded="true" />
+            <element signature="e#6035#10420#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26972">
+          <caret line="1226" selection-start-line="1226" selection-end-line="1226" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7964">
+          <caret line="362" column="29" lean-forward="true" selection-start-line="362" selection-start-column="29" selection-end-line="362" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12518">
+          <caret line="1226" selection-start-line="1226" selection-end-line="1226" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8162">
+          <caret line="371" lean-forward="true" selection-start-line="371" selection-end-line="371" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26972">
+          <caret line="1226" selection-start-line="1226" selection-end-line="1226" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3058">
+          <caret line="139" column="61" selection-start-line="139" selection-start-column="61" selection-end-line="139" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2244">
+          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12518">
+          <caret line="1226" lean-forward="true" selection-start-line="1226" selection-end-line="1226" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3058">
+          <caret line="139" column="61" lean-forward="true" selection-start-line="139" selection-start-column="61" selection-end-line="139" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1474">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4312">
+          <caret line="196" lean-forward="true" selection-start-line="196" selection-end-line="196" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2024">
+          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1430">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4994">
+          <caret line="227" lean-forward="true" selection-start-line="227" selection-end-line="227" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1628">
+          <caret line="74" column="84" selection-start-line="74" selection-start-column="84" selection-end-line="74" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/transporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/aproximacion_vogel.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prueba.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/esquina_ noroeste.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/report/Reporte.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="4" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="db://[Connection]consoles/Connection" />
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="98" column="19" lean-forward="true" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+          <folding>
+            <element signature="e#44#54#0" expanded="true" />
+            <element signature="e#6035#10420#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metodos/simplex_v4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="572" lean-forward="true" selection-start-line="572" selection-end-line="572" />
+          <folding>
+            <element signature="e#1270#4765#0" />
+            <element signature="e#4810#5862#0" />
+            <element signature="e#5933#8455#0" />
+            <element signature="e#8491#8644#0" />
+            <element signature="e#8685#11531#0" />
+            <element signature="e#11570#11644#0" />
+            <element signature="e#11697#11983#0" />
+            <element signature="e#12044#16980#0" />
+            <element signature="e#17044#17508#0" />
+            <element signature="e#17546#18566#0" />
+            <element signature="e#19905#21158#0" />
+            <element signature="e#21196#21967#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
