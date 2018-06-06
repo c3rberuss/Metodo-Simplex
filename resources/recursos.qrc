@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/">
+    <file>perfil.jpg</file>
+    <file>calculator.png</file>
+    <file>back.jpg</file>
+  </qresource>
+</RCC>

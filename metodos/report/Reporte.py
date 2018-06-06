@@ -96,7 +96,7 @@ class saveReport():
     
         header = None
 
-        doc = SimpleDocTemplate("Solucion_Simplex.pdf", pagesize=landscape(A2))
+        doc = SimpleDocTemplate(str(os.environ['HOME'])+"/Solucion_Simplex.pdf", pagesize=landscape(A2))
         elements = []
 
         styleSheet = getSampleStyleSheet()
@@ -172,4 +172,4 @@ class saveReport():
         doc.build(elements)
     
     def mostrar_pdf(self):
-        os.system("xdg-open Solucion_Simplex.pdf")
+        os.system("xdg-open {}/Solucion_Simplex.pdf".format(os.environ['HOME']))

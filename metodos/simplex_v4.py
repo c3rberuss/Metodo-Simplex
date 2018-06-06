@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+from PyQt5.QtWidgets import QMessageBox
+
 from sympy import Symbol
 from fractions import Fraction
 from decimal import Decimal
@@ -100,8 +102,7 @@ def penalizacion(data, max_min):
 
     for x in range(len(funcion_objetiva)):
         if funcion_objetiva['X' + str(x + 1)]:
-            funcion_objetiva['X' +
-                             str(x + 1)] = funcion_objetiva['X' + str(x + 1)] * -1
+            funcion_objetiva['X' + str(x + 1)] = funcion_objetiva['X' + str(x + 1)] * -1
 
     funcion_objetiva['b'] = 0
 
@@ -288,6 +289,57 @@ def matriz(filas, columnas):
 
     return matriz
 
+def var_entrada_v2(matriz, max_min):
+    var_entrada = []
+
+    filas = len(matriz) - 1
+    columnas = len(matriz[1])
+    M = 10e6
+
+    for columna in range(1, columnas - 1, 1):
+        var_entrada.append(float(eval(str(matriz[filas][columna]))))
+
+    columna_var_entrada = 0
+
+    if max_min == 'Maximizar':
+        # print("Maximizando")
+        # print(min(var_entrada))
+        columna_var_entrada = var_entrada.index(min(var_entrada)) + 1
+    else:
+        # print("Minimizando")
+        # print(max(var_entrada))
+        columna_var_entrada = var_entrada.index(max(var_entrada)) + 1
+
+    pivot = {}
+    tmp = []
+
+    for restriccion in range(1, filas, 1):
+        """print("restriccion_entrada: ",matriz[restriccion])
+        tmp.append(matriz[restriccion][columnas-1] / matriz[restriccion][columna_var_entrada])"""
+
+        if float(matriz[restriccion][columna_var_entrada]) > 0.0:
+            tmp.append(float(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada]))
+        elif matriz[restriccion][columna_var_entrada] < 0:
+            tmp.append(1000000)
+        elif float(matriz[restriccion][columna_var_entrada]) == 0:
+            tmp.append(1000000)
+
+    print("DIVISIONES EN ORDEN: ", tmp)
+
+    sol_ilimitada = soluciones_ilimitadas(1, tmp, matriz, ".", columna_var_entrada)
+
+    # revisar si es negativo o indeterminado (luego)
+
+    if sol_ilimitada:
+        print("Es solucion ilimitada")
+        return sol_ilimitada
+
+    pivot['columna'] = columna_var_entrada
+    pivot['fila'] = desempate_varible_salida(tmp, matriz, columna_var_entrada)  # tmp.index(min(tmp))+1
+    pivote = matriz[pivot['fila']][pivot['columna']]
+    print("Pivote: ", pivote)
+    return pivot
+
 
 def var_entrada(matriz, max_min):
     var_entrada = []
@@ -313,7 +365,7 @@ def var_entrada(matriz, max_min):
         else:
             var_entrada.append(str(matriz[filas][columna]))
 
-        # print("VARIABLES", var_entrada)
+    print("VARIABLES", var_entrada)
 
     for item in range(len(var_entrada)):
 
@@ -348,24 +400,27 @@ def var_entrada(matriz, max_min):
         """print("restriccion_entrada: ",matriz[restriccion])
         tmp.append(matriz[restriccion][columnas-1] / matriz[restriccion][columna_var_entrada])"""
 
-        if matriz[restriccion][columna_var_entrada] > 0:
-            tmp.append(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada])
+        if float(matriz[restriccion][columna_var_entrada]) > 0.0:
+            tmp.append(float(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada]))
         elif matriz[restriccion][columna_var_entrada] < 0:
             tmp.append(1000000)
         elif float(matriz[restriccion][columna_var_entrada]) == 0:
             tmp.append(1000000)
+
+    print("DIVISIONES EN ORDEN: ", tmp)
 
     sol_ilimitada = soluciones_ilimitadas(1, tmp, matriz, ".", columna_var_entrada)
 
     # revisar si es negativo o indeterminado (luego)
 
     if sol_ilimitada:
+        print("Es solucion ilimitada")
         return sol_ilimitada
 
     pivot['columna'] = columna_var_entrada
     pivot['fila'] = desempate_varible_salida(tmp, matriz, columna_var_entrada)  # tmp.index(min(tmp))+1
     pivote = matriz[pivot['fila']][pivot['columna']]
-    # print("Pivote: ", pivote)
+    print("Pivote: ", pivote)
     return pivot
 
     """if sol_ilimitada:
@@ -379,6 +434,40 @@ def var_salida(matriz, pivote):
     matriz[pivote['fila']][0] = matriz[0][pivote['columna']]
     return matriz
 
+
+def special_solution(columna_var_entrada, matriz):
+    filas = len(matriz) - 1
+    columnas = len(matriz[1])
+
+    pivot = {}
+    tmp = []
+
+    for restriccion in range(1, filas, 1):
+        """print("restriccion_entrada: ",matriz[restriccion])
+        tmp.append(matriz[restriccion][columnas-1] / matriz[restriccion][columna_var_entrada])"""
+
+        if float(matriz[restriccion][columna_var_entrada]) > 0.0:
+            tmp.append(float(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada]))
+        elif matriz[restriccion][columna_var_entrada] < 0:
+            tmp.append(1000000)
+        elif float(matriz[restriccion][columna_var_entrada]) == 0:
+            tmp.append(1000000)
+
+    print("DIVISIONES EN ORDEN: ", tmp)
+
+    sol_ilimitada = soluciones_ilimitadas(1, tmp, matriz, ".", columna_var_entrada)
+
+    # revisar si es negativo o indeterminado (luego)
+
+    if sol_ilimitada:
+        print("Es solucion ilimitada")
+        return sol_ilimitada
+
+    pivot['columna'] = columna_var_entrada
+    pivot['fila'] = desempate_varible_salida(tmp, matriz, columna_var_entrada)  # tmp.index(min(tmp))+1
+    pivote = matriz[pivot['fila']][pivot['columna']]
+    print("Pivote: ", pivote)
+    return pivot
 
 def reducir_fila_pivote(matriz, pivote_data):
     pivote = matriz[pivote_data['fila']][pivote_data['columna']]
@@ -571,6 +660,33 @@ def condicion(lista, max_min):
     return True
 
 
+def condicion_v3(lista, max_min):
+    elemento = lista[len(lista) - 1]
+
+    M = 10e6
+    tmp = []
+
+    for item in lista:
+        if str(item) != 'Z':
+            tmp.append(float(eval(str(item))))
+
+    for i in range(len(tmp)-1):
+        if max_min == "Maximizar":
+            # print("-*: ", tmp[i])
+            if tmp[i] < 0:
+                return False
+                break
+        else:
+            # print("-*: ", tmp[i])
+
+            if tmp[i] > 0:
+                return False
+                break
+
+    return True
+
+
+    print("TEMPORALES: ", tmp)
 
 def condicion_v2(lista, max_min):
     # print("fila_z_inicial: ", lista)
@@ -624,6 +740,74 @@ def condicion_v2(lista, max_min):
 
     return True
 
+def depurar_nueva_solucion_v2(matriz):
+
+    M = Symbol('M')
+    fila_z = matriz[len(matriz) - 1]
+    fila_z = fila_z[1:]
+    # print("DEPURAR: ", fila_z)
+
+    tmp = []
+
+    for item in fila_z:
+
+        if 'M' in str(item):
+            a = str(item).replace('*M', ',').split(',')
+            # print("Elemento A: ", a)
+
+            b = 0
+
+            if '' in a:
+                a[a.index('')] = '0'
+
+            for i in range(len(a)):
+
+                a[i] = a[i].replace(' ', '')
+
+                if 'e' in a[i]:
+                    a[i] = round(float(a[i]))
+                else:
+                    a[i] = eval(a[i])
+
+            if len(a) < 2:
+                # print("MENOR: ", a)
+                if -M in a or M in a:
+                    a.append(0)
+                    # print("NUEVA: ",a)
+
+            tmp.append(a)
+        else:
+            tmp.append([0, eval(str(item))])
+
+    final = []
+
+    for item in tmp:
+
+        if len(item) == 2:
+            if str(item[0]) != 'M' and str(item[0]) != "-M":
+                final.append((item[0] * M) + item[1])
+            else:
+                final.append((item[0]) + item[1])
+        else:
+            final.append(item)
+
+    final.insert(0, 'Z')
+
+    matriz[len(matriz) - 1] = final
+
+    # print("DEPURAR NUEVA: ", final)
+    for j in range(1, len(matriz)-1, 1):
+        for i in range(1, len(matriz[0])-1, 1):
+            if '-' in str(matriz[j][i])[0] and 'e' in str(matriz[j][i]):
+                print("Posicin Negativo: ", str(matriz[j][i])[0])
+                print("Elemento: ", matriz[j][i])
+                if str(matriz[j][i]).index('-') == 0:
+                    print("si entra")
+                    print("Elemento: ", matriz[j][i])
+                    matriz[j][i] = round(float((str(matriz[j][i]))))
+                    print("Elemento Nuevo: ", matriz[j][i])
+
+    return matriz
 
 def depurar_nueva_solucion(matriz):
     M = Symbol('M')
@@ -680,6 +864,7 @@ def depurar_nueva_solucion(matriz):
     matriz[len(matriz) - 1] = final
 
     # print("DEPURAR NUEVA: ", final)
+
     return matriz
 
 
@@ -851,6 +1036,55 @@ def divisor(matriz, max_min):
 
     return tmp
 
+def generar_solucion(matriz_, case):
+
+    respuesta = []
+
+    if case == 1:
+
+        for i in range(1, len(matriz_), 1):
+            if not 'e' in str(matriz_[i][len(matriz_[0]) - 1]):
+                respuesta.append(
+                    matriz_[i][0] + ' = ' + str(Fraction(str(matriz_[i][len(matriz_[0]) - 1])).limit_denominator(1000)))
+                print(
+                    matriz_[i][0] + ' = ' + str(Fraction(str(matriz_[i][len(matriz_[0]) - 1])).limit_denominator(1000)))
+            else:
+                respuesta.append(
+                    matriz_[i][0] + ' = ' + str(matriz_[i][len(matriz_[0]) - 1]))
+                print(matriz_[i][0] + ' = ' + str(matriz_[i][len(matriz_[0]) - 1]))
+
+    elif case == 2:
+
+        for i in range(1, len(matriz_), 1):
+            if not 'e' in str(matriz_[i][len(matriz_[0]) - 1]):
+                respuesta.append(
+                    matriz_[i][0] + ' = ' + str(Fraction(str(matriz_[i][len(matriz_[0]) - 1])).limit_denominator(1000)))
+                print(
+                    matriz_[i][0] + ' = ' + str(Fraction(str(matriz_[i][len(matriz_[0]) - 1])).limit_denominator(1000)))
+            else:
+                respuesta.append(
+                    matriz_[i][0] + ' = ' + str(matriz_[i][len(matriz_[0]) - 1]))
+                print(matriz_[i][0] + ' = ' + str(matriz_[i][len(matriz_[0]) - 1]))
+
+
+    elif case == 3:
+        print("")
+
+    lista = []
+
+    for item in respuesta:
+        lista.append(str(item).split(" = ")[0])
+
+    print("VARS____: ", lista)
+
+    for columna in range(1, len(matriz_[0])-1, 1):
+        if not matriz_[0][columna] in lista:
+            respuesta.append(matriz_[0][columna] + " = " + "0")
+
+    print("RESP: ", respuesta)
+
+    return sorted(respuesta)
+
 
 def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
     element = 0
@@ -900,6 +1134,7 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
             n = len(items)
 
             if n < 1:
+                print("ENE ES MENOR QUE 1")
                 return tmp.index(min(tmp)) + 1
                 break
 
@@ -907,14 +1142,26 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
 
             if n != m:
                 # print("Nuevo pivote: ", items.index(min(items))+1)
-                return items.index(min(items)) + 1
+                print("ENE ES DIFERENTE DE EME: ", min(items))
+
+                x_ = []
+
+                for x in items:
+                    if x != 1000000:
+                        x_.append(x)
+
+                return items.index(min(x_)) + 1
                 break
 
             items = []
 
         # print("bi: ", items)
+        print("HAY EMPATE EN LA VARIABLE DE SALIDA :(")
     else:
+        print("VARIABLE DE SALIDA VALOR: ", min(tmp))
+        print("VARIABLE DE SALIDA POSICION: ", tmp.index(min(tmp)) + 1)
         return tmp.index(min(tmp)) + 1
+
 
 
 def get_eq(data_, tabla, max_min, var_hol, var_art):
@@ -1048,15 +1295,27 @@ def simplex(data, max_min):
     mostrar_sol = True
     respuesta = []
 
-    encontrar_nueva_solucion = condicion_v2(solucion_inicial[len(solucion_inicial) - 1], max_min)
+    encontrar_nueva_solucion = condicion_v3(solucion_inicial[len(solucion_inicial) - 1], max_min)
+    contains_m = False
 
-    if encontrar_nueva_solucion:
+    print("VALIDACION: ", solucion_inicial[len(solucion_inicial)-1])
+
+    for item in solucion_inicial[len(solucion_inicial)-1]:
+        print("ITEM-VALIDACION: ", str(item))
+        if 'M' in str(item):
+            contains_m = True
+            break
+
+
+    if encontrar_nueva_solucion and contains_m == False:
         sol_ini = solucion_inicial
         mensaje['mensaje'] = "Solución Optima"
         solucion_optima_ = True
+        print("NO TIENE SOLUCION OPTIMA")
 
     while not encontrar_nueva_solucion:
-        pivote = var_entrada(solucion_inicial, max_min)
+        #pivote = var_entrada(solucion_inicial, max_min)
+        pivote = var_entrada_v2(solucion_inicial, max_min)
 
         print("PIVOTE: ", pivote)
 
@@ -1124,11 +1383,13 @@ def simplex(data, max_min):
             solucion_multiple_ = True
             solucion_optima_ = False
 
-            for i in range(1, len(sol_ini), 1):
-                respuesta.append(
-                    sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
-                print(
-                    sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
+            respuesta = generar_solucion(sol_ini, 2)
+
+            # for i in range(1, len(sol_ini), 1):
+            #     respuesta.append(
+            #         sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
+            #     print(
+            #         sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
 
             tmp_datos = copy.deepcopy(datos)
             tmp_respuesta = copy.deepcopy(respuesta)
@@ -1138,11 +1399,11 @@ def simplex(data, max_min):
             del respuesta[:]
             del iteraciones[:]
 
-            return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
+            return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, penali[2], penali[3]
 
             break
 
-        encontrar_nueva_solucion = condicion_v2(sol_ini[len(sol_ini) - 1], max_min)
+        encontrar_nueva_solucion = condicion_v3(sol_ini[len(sol_ini) - 1], max_min)
 
         insoluble = problema_insoluble(sol_ini)
 
@@ -1172,10 +1433,12 @@ def simplex(data, max_min):
     if solucion_optima_ == True and solucion_ilimitada == False and solucion_multiple_ == False and problema_insoluble_ == False:
         print(" Solucion Optima ".center(100, '='))
 
-        for i in range(1, len(sol_ini), 1):
-            respuesta.append(
-                sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
-            print(sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
+        # for i in range(1, len(sol_ini), 1):
+        #     respuesta.append(
+        #         sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
+        #     print(sol_ini[i][0] + ' = ' + str(Fraction(str(sol_ini[i][len(sol_ini[0]) - 1])).limit_denominator(1000)))
+
+        respuesta = generar_solucion(sol_ini, 1)
 
         tmp_datos = copy.deepcopy(datos)
         tmp_respuesta = copy.deepcopy(respuesta)
@@ -1184,6 +1447,7 @@ def simplex(data, max_min):
         del datos[:]
         del respuesta[:]
         del iteraciones[:]
+
 
         return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
 
@@ -1258,118 +1522,202 @@ ilimitadas = [{'func_obj': {'X2': 4.0, 'X1': 4.0, 'X3': 3.0}},
 
 error = [{'func_obj': {'X1': 4.0, 'X3': 7.0, 'X5': 9.0, 'X4': 5.0, 'X2': 6.0}}, {'restric_1': {'X1': 1.0, 'X2': 3.0, 'X3': 4.0, 'X4': 5.0, 'b1': 20.0, 'desigualdad1': '>=', 'X5': 7.0}}, {'restric_2': {'X1': 0.0, 'b2': 15.0, 'X2': 6.0, 'X3': 7.0, 'X4': 8.0, 'desigualdad2': '>=', 'X5': 0.0}}, {'restric_3': {'X1': 7.0, 'desigualdad3': '>=', 'X2': 8.0, 'X3': 0.0, 'X4': 7.0, 'b3': 30.0, 'X5': 9.0}}, {'restric_4': {'X1': 7.0, 'b4': 20.0, 'X2': 2.0, 'X3': 1.0, 'X4': 0.0, 'desigualdad4': '<=', 'X5': 8.0}}]
 
+simplex(error, "Maximizar")
+
 """a = simplex(prueba2, max_min)
 
 r = saveReport(a[0], a[1], a[2], a[3])
 r.crear_pdf()"""
+#
+# penali = penalizacion(error, max_min)
+# tabla = generar_tabla(penali, max_min)
+# sol_ini = solucion_basica_inicial(tabla, penali[2], penali[3], max_min)
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+# print("PIVOTE: ", pivote)
+#
+#
+# print(" PRIMERA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" SEGUNDA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" TERCERA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" CUARTA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" QUINTA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" SEXTA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" SEPTIMA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" OCTAVA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion_v2(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" NOVENA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion_v2(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" DECIMA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion_v2(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" ONCEAVA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion_v2(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+#
+#
+# pivote = var_entrada(sol_ini, max_min)
+# sol_ini = var_salida(sol_ini, pivote)
+# sol_ini = reducir_fila_pivote(sol_ini, pivote)
+#
+# print("PIVOTE: ", pivote)
+#
+# print(" DOCEAVA ITERACION".center(100, "*"))
+# sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
+# sol_ini = depurar_nueva_solucion_v2(sol_ini)
+#
+# for item in sol_ini:
+#     print(item)
+#
+# print("OPTIMA?: " , condicion_v3(sol_ini[len(sol_ini)-1], "Maximizar"))
+# #print(condicion_v2(sol_ini[len(sol_ini)-1], max_min))
 
-penali = penalizacion(error, max_min)
-tabla = generar_tabla(penali, max_min)
-sol_ini = solucion_basica_inicial(tabla, penali[2], penali[3], max_min)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" PRIMERA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-
-print(" SEGUNDA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" TERCERA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" CUARTA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" QUINTA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" SEXTA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" SEPTIMA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" OCTAVA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-pivote = var_entrada(sol_ini, max_min)
-sol_ini = var_salida(sol_ini, pivote)
-sol_ini = reducir_fila_pivote(sol_ini, pivote)
-
-print(" NOVENA ITERACION".center(100, "*"))
-sol_ini = nueva_solucion_v2(sol_ini, pivote, penali[2], penali[3])
-sol_ini = depurar_nueva_solucion(sol_ini)
-
-for item in sol_ini:
-    print(item)
-
-#print(condicion_v2(sol_ini[len(sol_ini)-1], max_min))
-
+#simplex(error, "Maximizar")
 
 """a = [['Var Basic', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6' ,'bi'],
     ['X5', 4, 2, 4, -1, 1, 0, 2],

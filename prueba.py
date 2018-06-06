@@ -74,3 +74,6 @@ print("hola\ncomo estas?\nBien :)")
 lista = [1, 2, 3]
 
 print(sum(lista))
+
+if -4.251515215e-17 > 0:
+    print("A huevo, es mayor")
