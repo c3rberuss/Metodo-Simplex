@@ -3,6 +3,7 @@
 
 import sys
 import copy
+
 from PyQt5.Qt import QIntValidator, QDoubleValidator, QPixmap, QPalette, QBrush
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QAction, QDialog, QComboBox,
                              QLineEdit, QLabel, QMessageBox, QInputDialog)
@@ -43,7 +44,7 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
         self.btnSolve.clicked.connect(self.solve)
 
-        self.btnLimpiar.clicked.connect(self.clearLayout)
+        self.btnLimpiar.clicked.connect(lambda: self.clearLayout(True))
 
     def generateInputs(self):
 
@@ -61,8 +62,11 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
             self.label_4.setVisible(True)
             self.addElements(self.i, self.j)
 
-    def clearLayout(self):
+    def clearLayout(self, inputs=False):
 
+        if inputs:
+            self.txtVariables.clear()
+            self.txtRestricciones.clear()
 
         self.label_3.setVisible(False)
         self.label_4.setVisible(False)
@@ -111,10 +115,10 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
 
             if message.clickedButton() == yes:
                 print("1************")
-                self.nueva_sol(data[0], data[3], data[1], data[2], data[4], data[5])
+                self.nueva_sol(data[0], data[3], data[1], data[2], data[4], data[5], data[6])
             elif message.clickedButton() == no:
 
-                reporte = saveReport(data[0], data[1], data[2], data[3])
+                reporte = saveReport(data[0], data[1], data[2], data[3], data[6])
                 reporte.crear_pdf()
                 reporte.mostrar_pdf()
 
@@ -122,12 +126,13 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
                 print("A: ", message.clickedButton())
                 print("B: ", yes)
                 print("C: ", no)
+
         elif "Ilimitadas" in data[3]['mensaje']:
-            reporte = saveReport(data[0], data[1], data[2], data[3])
+            reporte = saveReport(data[0], data[1], data[2], data[3], data[4])
             reporte.crear_pdf()
             reporte.mostrar_pdf()
         else:
-            reporte = saveReport(data[0], data[1], data[2], data[3])
+            reporte = saveReport(data[0], data[1], data[2], data[3], data[4])
             reporte.crear_pdf()
             reporte.mostrar_pdf()
 
@@ -136,7 +141,7 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         data = None
         reporte = None
 
-    def nueva_sol(self, restricciones, mensaje, respuesta, iteraciones, holgura, artificial):
+    def nueva_sol(self, restricciones, mensaje, respuesta, iteraciones, holgura, artificial, data):
 
         vars_sol = []
 
@@ -178,12 +183,31 @@ class Simplex(QDialog, simplex_interfaz.Ui_Dialog):
         sol_ = sp.nueva_solucion_v2(sol_, pivote, holgura, artificial)
         sol_ = sp.depurar_nueva_solucion(sol_)
         iteraciones.append(sol_)
-
         respuesta = sp.generar_solucion(sol_, 2)
 
-        reporte = saveReport(restricciones, respuesta, iteraciones, mensaje)
-        reporte.crear_pdf()
-        reporte.mostrar_pdf()
+        message = QMessageBox()
+        message.setWindowTitle("Simplex")
+        message.setText("Nueva Solución")
+
+        sol = ""
+        for var in respuesta:
+            sol = sol + var + "\n"
+
+        message.setInformativeText("Solución: \n\n" + sol + "\n" + "¿Desea obtener una nueva solución?")
+        yes = message.addButton("Sí", QMessageBox.YesRole)
+        no = message.addButton("No", QMessageBox.NoRole)
+        message.setIcon(QMessageBox.Information)
+        message.setStyleSheet("font-weight: bold;")
+
+        message.exec()
+
+        if message.clickedButton() == yes:
+            self.nueva_sol(restricciones, mensaje, respuesta, iteraciones, holgura, artificial, data)
+        elif message.clickedButton() == no:
+
+            reporte = saveReport(restricciones, respuesta, iteraciones, mensaje, data)
+            reporte.crear_pdf()
+            reporte.mostrar_pdf()
 
     def getData(self):
 

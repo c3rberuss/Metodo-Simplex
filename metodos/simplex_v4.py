@@ -14,6 +14,7 @@ it = 0
 iteraciones = []
 datos = []
 mensaje = {}
+data_iteraciones = []
 
 prueba = [{'func_obj': {'X2': 8.0, 'X1': 7.0, 'X4': 6.0, 'X3': 12.0}},
           {'restric_1': {'desigualdad1': '>=', 'b1': 28.0, 'X3': 6.0, 'X2': 2.0, 'X1': 3.0, 'X4': 1.0}}, {'restric_2': {
@@ -320,9 +321,9 @@ def var_entrada_v2(matriz, max_min):
         if float(matriz[restriccion][columna_var_entrada]) > 0.0:
             tmp.append(float(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada]))
         elif matriz[restriccion][columna_var_entrada] < 0:
-            tmp.append(1000000)
+            tmp.append(100000000)
         elif float(matriz[restriccion][columna_var_entrada]) == 0:
-            tmp.append(1000000)
+            tmp.append(100000000)
 
     print("DIVISIONES EN ORDEN: ", tmp)
 
@@ -911,7 +912,9 @@ def soluciones_ilimitadas(case, data, matriz, max_min=".", columna_var_entrada=0
 
     if case == 1:
         n = len(data)
-        m = data.count(1000000)
+        m = data.count(100000000)
+
+        print("TIENE {} VALORES NEGATIVOS Y CEROS".format(m))
 
         columna_variable_entrada = columna_var_entrada
 
@@ -1030,13 +1033,13 @@ def divisor(matriz, max_min):
         if matriz[restriccion][columna_var_entrada] > 0:
             tmp.append(matriz[restriccion][columnas - 1] / matriz[restriccion][columna_var_entrada])
         elif matriz[restriccion][columna_var_entrada] < 0:
-            tmp.append(1000000)
+            tmp.append(100000000)
         elif float(matriz[restriccion][columna_var_entrada]) == 0:
-            tmp.append(1000000)
+            tmp.append(100000000)
 
     return tmp
 
-def generar_solucion(matriz_, case):
+def generar_solucion(matriz_, case, full=False):
 
     respuesta = []
 
@@ -1072,14 +1075,15 @@ def generar_solucion(matriz_, case):
 
     lista = []
 
-    for item in respuesta:
-        lista.append(str(item).split(" = ")[0])
+    if full:
+        for item in respuesta:
+            lista.append(str(item).split(" = ")[0])
 
-    print("VARS____: ", lista)
+        print("VARS____: ", lista)
 
-    for columna in range(1, len(matriz_[0])-1, 1):
-        if not matriz_[0][columna] in lista:
-            respuesta.append(matriz_[0][columna] + " = " + "0")
+        for columna in range(1, len(matriz_[0]) - 1, 1):
+            if not matriz_[0][columna] in lista:
+                respuesta.append(matriz_[0][columna] + " = " + "0")
 
     print("RESP: ", respuesta)
 
@@ -1093,7 +1097,7 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
     # print("TMP: ", tmp)
 
     for item in tmp:
-        if item != 1000000:
+        if item != 100000000:
             element = item
             # print(element)
         else:
@@ -1125,9 +1129,9 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
                     if matriz[i][columna_var_entrada] > 0:
                         items.append(matriz[i][j] / matriz[i][columna_var_entrada])
                     elif matriz[i][columna_var_entrada] < 0:
-                        items.append(1000000)
+                        items.append(100000000)
                     elif matriz[i][columna_var_entrada] == 0:
-                        items.append(1000000)
+                        items.append(100000000)
 
             # print(items)
 
@@ -1138,6 +1142,9 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
                 return tmp.index(min(tmp)) + 1
                 break
 
+            if n > m:
+                print("ENE ESMAYOR QUE EME")
+
             m = items.count(items[0])
 
             if n != m:
@@ -1147,7 +1154,7 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
                 x_ = []
 
                 for x in items:
-                    if x != 1000000:
+                    if x != 100000000:
                         x_.append(x)
 
                 return items.index(min(x_)) + 1
@@ -1157,6 +1164,9 @@ def desempate_varible_salida(tmp, matriz, columna_var_entrada, max_min="."):
 
         # print("bi: ", items)
         print("HAY EMPATE EN LA VARIABLE DE SALIDA :(")
+
+
+
     else:
         print("VARIABLE DE SALIDA VALOR: ", min(tmp))
         print("VARIABLE DE SALIDA POSICION: ", tmp.index(min(tmp)) + 1)
@@ -1271,6 +1281,9 @@ a = None
 
 def simplex(data, max_min):
 
+    global data_iteraciones
+    data_iteraciones = []
+
     solucion_optima_ = True
     solucion_multiple_ = False
     solucion_ilimitada = False
@@ -1283,7 +1296,7 @@ def simplex(data, max_min):
 
     datos = get_eq(a, tabla, max_min, penali[2], penali[3])
 
-    iteraciones.append(copy.deepcopy(tabla))
+    #iteraciones.append(copy.deepcopy(tabla))
 
     solucion_inicial = solucion_basica_inicial(tabla, penali[2], penali[3], max_min)
     a = copy.deepcopy(solucion_inicial)
@@ -1338,11 +1351,13 @@ def simplex(data, max_min):
                 tmp_respuesta = copy.deepcopy(respuesta)
                 tmp_iteraciones = copy.deepcopy(iteraciones)
                 tmp_mensaje = copy.deepcopy(mensaje)
+                tmp_data_iteraciones = copy.deepcopy(data_iteraciones)
                 del datos[:]
                 del respuesta[:]
                 del iteraciones[:]
+                del data_iteraciones[:]
 
-                return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
+                return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, tmp_data_iteraciones
                 break
 
             respuesta = sol
@@ -1352,6 +1367,11 @@ def simplex(data, max_min):
             break
 
         sol_ini = solucion_inicial
+
+        variable_salida = sol_ini[pivote['fila']][0]
+        variable_entrada = sol_ini[0][pivote['columna']]
+        pivote__ = str(Fraction(str(sol_ini[pivote['fila']][pivote['columna']])).limit_denominator(1000))
+
         sol_ini = var_salida(sol_ini, pivote)
         sol_ini = reducir_fila_pivote(sol_ini, pivote)
 
@@ -1360,6 +1380,14 @@ def simplex(data, max_min):
 
         a = copy.deepcopy(sol_ini)
         iteraciones.append(a)
+
+        data__ = {
+            "ve": variable_entrada,
+            "vs": variable_salida,
+            "p": pivote__
+        }
+
+        data_iteraciones.append(data__)
 
         mensaje['mensaje'] = "Solución Optima"
 
@@ -1395,11 +1423,13 @@ def simplex(data, max_min):
             tmp_respuesta = copy.deepcopy(respuesta)
             tmp_iteraciones = copy.deepcopy(iteraciones)
             tmp_mensaje = copy.deepcopy(mensaje)
+            tmp_data_iteraciones = copy.deepcopy(data_iteraciones)
             del datos[:]
             del respuesta[:]
             del iteraciones[:]
+            del data_iteraciones[:]
 
-            return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, penali[2], penali[3]
+            return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, penali[2], penali[3], tmp_data_iteraciones
 
             break
 
@@ -1444,12 +1474,14 @@ def simplex(data, max_min):
         tmp_respuesta = copy.deepcopy(respuesta)
         tmp_iteraciones = copy.deepcopy(iteraciones)
         tmp_mensaje = copy.deepcopy(mensaje)
+        tmp_data_iteraciones = copy.deepcopy(data_iteraciones)
         del datos[:]
         del respuesta[:]
         del iteraciones[:]
+        del data_iteraciones[:]
 
 
-        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
+        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, tmp_data_iteraciones
 
     elif solucion_optima_ == False and solucion_ilimitada == False and solucion_multiple_ == False and problema_insoluble_ == True:
 
@@ -1460,11 +1492,13 @@ def simplex(data, max_min):
         tmp_respuesta = copy.deepcopy(respuesta)
         tmp_iteraciones = copy.deepcopy(iteraciones)
         tmp_mensaje = copy.deepcopy(mensaje)
+        tmp_data_iteraciones = copy.deepcopy(data_iteraciones)
         del datos[:]
         del respuesta[:]
         del iteraciones[:]
+        del data_iteraciones[:]
 
-        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
+        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, tmp_data_iteraciones
 
     elif solucion_optima_ == False and solucion_ilimitada == True and solucion_multiple_ == False and problema_insoluble_ == False:
 
@@ -1478,17 +1512,20 @@ def simplex(data, max_min):
         tmp_respuesta = copy.deepcopy(respuesta)
         tmp_iteraciones = copy.deepcopy(iteraciones)
         tmp_mensaje = copy.deepcopy(mensaje)
+        tmp_data_iteraciones = copy.deepcopy(data_iteraciones)
 
         del datos[:]
         del respuesta[:]
         del iteraciones[:]
+        del data_iteraciones[:]
+
 
         print("MENSAJE: ", tmp_mensaje)
         print("RESPUESTA: ", tmp_respuesta)
         print("DATOS: ", tmp_datos)
         print("ITERACIONES: ", tmp_iteraciones)
 
-        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje
+        return tmp_datos, tmp_respuesta, tmp_iteraciones, tmp_mensaje, tmp_data_iteraciones
 
 
 

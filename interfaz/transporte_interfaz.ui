@@ -8,11 +8,15 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>409</height>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Métodos de Solución de Problemas de Transporte</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/recursos.qrc">
+    <normaloff>:/calculator.png</normaloff>:/calculator.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -129,8 +133,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>525</width>
-        <height>248</height>
+        <width>527</width>
+        <height>250</height>
        </rect>
       </property>
       <widget class="QWidget" name="layoutWidget">
@@ -224,6 +228,8 @@
   <tabstop>btnSolve</tabstop>
   <tabstop>btnClose</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources/recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>

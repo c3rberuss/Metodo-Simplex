@@ -77,3 +77,7 @@ print(sum(lista))
 
 if -4.251515215e-17 > 0:
     print("A huevo, es mayor")
+
+import webbrowser
+
+webbrowser.open("/home/c3rberuss/Solucion_Simplex.pdf")

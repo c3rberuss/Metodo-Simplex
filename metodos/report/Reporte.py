@@ -5,13 +5,18 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import legal, A2 , inch, landscape, portrait
 from reportlab.pdfgen import textobject
 from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Table
-from reportlab.lib.styles import getSampleStyleSheet
+
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.enums import TA_LEFT, TA_RIGHT, TA_CENTER, TA_JUSTIFY
+from PyQt5.QtWidgets import QMessageBox
+
 from reportlab.pdfgen import canvas
 
 from fractions import Fraction
 from copy import deepcopy
 from sympy import Symbol
 import os
+import webbrowser
 
 class saveReport():
 
@@ -24,9 +29,12 @@ class saveReport():
     respuesta = None
     iteraciones = None
     mensaje = None
+    data = None
 
-    def __init__(self, restricciones_, respuesta_, iteraciones_, mensaje_):
+    def __init__(self, restricciones_, respuesta_, iteraciones_, mensaje_, data_):
 
+        self.data = data_
+        print("DATA ITERACIONES = ", self.data)
         self.mensaje = mensaje_
 
         if 'V.A' in restricciones_:
@@ -96,7 +104,7 @@ class saveReport():
     
         header = None
 
-        doc = SimpleDocTemplate(str(os.environ['HOME'])+"/Solucion_Simplex.pdf", pagesize=landscape(A2))
+        doc = SimpleDocTemplate(str(os.getcwd())+"/Solucion_Simplex.pdf", pagesize=landscape(A2))
         elements = []
 
         styleSheet = getSampleStyleSheet()
@@ -135,7 +143,12 @@ class saveReport():
 
         elements.append(Paragraph("",styleSheet['Heading1']))
 
+        count = 0
+        space_ = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+        sty = ParagraphStyle(name="myStyle", alignment=TA_CENTER,
+                             fontName="Helvetica-BoldOblique")
         for iteracion in self.iteraciones:
+            print("COUNT: ", count)
             t=Table(iteracion,style=[
                     ('GRID',(0,0),(-1,-1),1,colors.black),
                     ('BACKGROUND', (0, 0), (0, -1), colors.blue),
@@ -152,7 +165,16 @@ class saveReport():
 
             elements.append(t)
             elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
+
+            if count >= 0 and count < len(self.data):
+                elements.append(Paragraph(
+                    "<b>V.E = {}{}V.S = {}{}    Pivote = {}</b>".format(self.data[count]['ve'], space_, self.data[count]['vs'], space_,
+                                                                        self.data[count]['p']), style=sty))
+
             elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
+            elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
+
+            count = count + 1
 
         """t._argW[0]=0.6*inch
         t._argW[1]=1.9*inch
@@ -172,4 +194,13 @@ class saveReport():
         doc.build(elements)
     
     def mostrar_pdf(self):
-        os.system("xdg-open {}/Solucion_Simplex.pdf".format(os.environ['HOME']))
+        try:
+            #os.system("xdg-open {}/Solucion_Simplex.pdf".format(os.environ['HOME']))
+            #os.popen("{}/Solucion_Simplex.pdf".format(os.getcwd()))
+            webbrowser.open("{}/Solucion_Simplex.pdf".format(os.getcwd()))
+        except Exception as e:
+            message = QMessageBox()
+            message.setWindowTitle("Info")
+            message.setText("Ops! Al parecer no ha logrado acceder al PDF auto-generado.")
+            message.setInformativeText("Por favor, vaya a {}/Solucion_Simplex.pdf y verifique que el archivo se encuentre  ahí.".format(os.environ['HOME']))
+            message.setIcon(QMessageBox.Information)

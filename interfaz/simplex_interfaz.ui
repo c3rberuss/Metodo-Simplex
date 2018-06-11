@@ -8,11 +8,15 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>409</height>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Método Simplex</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/recursos.qrc">
+    <normaloff>:/calculator.png</normaloff>:/calculator.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="10" column="0">
@@ -70,8 +74,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>525</width>
-        <height>63</height>
+        <width>527</width>
+        <height>65</height>
        </rect>
       </property>
       <widget class="QWidget" name="layoutWidget">
@@ -146,8 +150,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>525</width>
-        <height>148</height>
+        <width>527</width>
+        <height>150</height>
        </rect>
       </property>
       <widget class="QWidget" name="layoutWidget">
@@ -286,6 +290,8 @@
   <tabstop>btnLimpiar</tabstop>
   <tabstop>btnClose</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources/recursos.qrc"/>
+ </resources>
  <connections/>
 </ui>
