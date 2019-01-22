@@ -78,6 +78,15 @@ print(sum(lista))
 if -4.251515215e-17 > 0:
     print("A huevo, es mayor")
 
-import webbrowser
 
-webbrowser.open("/home/c3rberuss/Solucion_Simplex.pdf")
+lista = [ ['O/D', 'D1', 'D2','D3', 'Of'],['a', 1,2,3,4],['b',5,6,7,8],['c',9,10,11,12], ['De',13,14,15, None]]
+
+for x in lista:
+    print(x)
+
+demand = lista[len(lista)-1][1:len(lista[0])-1]
+print(demand)
+ofert = [ x[len(x)-1:][0] for x in lista[1:len(lista)-1] ]
+print(ofert)
+cost = [ x[1:len(x)-1] for x in lista[1:len(lista)-1] ]
+print(cost)

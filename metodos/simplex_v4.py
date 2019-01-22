@@ -1296,7 +1296,7 @@ def simplex(data, max_min):
 
     datos = get_eq(a, tabla, max_min, penali[2], penali[3])
 
-    #iteraciones.append(copy.deepcopy(tabla))
+    iteraciones.append(copy.deepcopy(tabla))
 
     solucion_inicial = solucion_basica_inicial(tabla, penali[2], penali[3], max_min)
     a = copy.deepcopy(solucion_inicial)

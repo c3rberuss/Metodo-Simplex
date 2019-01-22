@@ -166,10 +166,10 @@ class saveReport():
             elements.append(t)
             elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
 
-            if count >= 0 and count < len(self.data):
+            if count >= 1 and count <= len(self.data):
                 elements.append(Paragraph(
-                    "<b>V.E = {}{}V.S = {}{}    Pivote = {}</b>".format(self.data[count]['ve'], space_, self.data[count]['vs'], space_,
-                                                                        self.data[count]['p']), style=sty))
+                    "<b>V.E = {}{}V.S = {}{}    Pivote = {}</b>".format(self.data[count-1]['ve'], space_, self.data[count-1]['vs'], space_,
+                                                                        self.data[count-1]['p']), style=sty))
 
             elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
             elements.append(Paragraph("<b>\n</b>", styleSheet['Heading3']))
